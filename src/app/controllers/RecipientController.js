@@ -19,7 +19,7 @@ class RecipientController {
       return res.status(400).json({ error: 'Validation fails.' });
     }
 
-    /* const recipientExists = await Recipient.findOne({
+    const recipientExists = await Recipient.findOne({
       where: { name: req.body.name },
     });
 
@@ -27,7 +27,7 @@ class RecipientController {
       return res
         .status(400)
         .json({ error: 'Recipient already exists. Please, choose another.' });
-    } */
+    }
 
     const {
       id,
@@ -70,7 +70,7 @@ class RecipientController {
     const recipientExists = await Recipient.findByPk(req.params.id);
 
     if (!recipientExists) {
-      return res.status(401).json({ error: 'Recipient does not exist.' });
+      return res.status(400).json({ error: 'Recipient does not exist.' });
     }
 
     const {
