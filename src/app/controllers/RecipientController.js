@@ -60,16 +60,24 @@ class RecipientController {
       complemento: Yup.string(),
       cidade: Yup.string().required(),
       estado: Yup.string().required(),
-      cep: Yup.string().required(),
+      cep: Yup.string()
+        .required()
+        .length(8),
     });
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails.' });
     }
+    // BODY REQUEST
+    // const recipient = await Recipient.findOne({ where: { name: req.body.name } });
 
-    const recipientExists = await Recipient.findByPk(req.params.id);
+    // QUERY PARAMS
+    const recipient = await Recipient.findByPk(req.query.id);
 
-    if (!recipientExists) {
+    // ROUTE PARAMS
+    // const recipient = await Recipient.findByPk(req.params.id);
+
+    if (!recipient) {
       return res.status(400).json({ error: 'Recipient does not exist.' });
     }
 
@@ -82,7 +90,7 @@ class RecipientController {
       cidade,
       estado,
       cep,
-    } = await Recipient.update(req.body);
+    } = await recipient.update(req.body);
 
     return res.json({
       id,

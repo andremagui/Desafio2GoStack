@@ -14,6 +14,11 @@ routes.post('/sessions', SessionController.store);
 routes.use(authMiddleware);
 
 routes.post('/recipients', RecipientController.store);
+
+// ROUTE PARAMS
+// routes.put('/recipients/:id', RecipientController.update);
+
+// BODY REQUEST and QUERY PARAMS
 routes.put('/recipients', RecipientController.update);
 
 export default routes;
